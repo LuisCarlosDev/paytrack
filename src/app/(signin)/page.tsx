@@ -14,7 +14,7 @@ export default async function Signin() {
   return (
     <div className="grid min-h-screen grid-cols-2">
       <div className="flex h-full flex-col justify-center border-r border-foreground/5 bg-muted p-10 text-muted-foreground">
-        <div className="flex items-center flex-col gap-3 text-lg text-foreground self-center">
+        <div className="flex flex-col items-center gap-3 self-center text-lg text-foreground">
           <Image
             src="/images/logo.png"
             alt="PayTrack Logo"

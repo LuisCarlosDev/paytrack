@@ -10,7 +10,7 @@ export default function Form() {
   }
 
   return (
-    <form className="space-y-4 flex flex-col">
+    <form className="flex flex-col space-y-4">
       <Button className="gap-2" variant="outline" onClick={handleLogin}>
         <Image
           src={'/icons/google-icon.svg'}
