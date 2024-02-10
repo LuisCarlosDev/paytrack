@@ -1,8 +1,8 @@
-import { db } from "@/app/_lib/prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AuthOptions } from "next-auth";
-import { Adapter } from "next-auth/adapters";
-import GoogleProvider from "next-auth/providers/google";
+import { db } from '@/app/_lib/prisma'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { AuthOptions } from 'next-auth'
+import { Adapter } from 'next-auth/adapters'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
@@ -12,31 +12,40 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
-          scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
-        }
-      }
+          scope:
+            'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+        },
+      },
     }),
   ],
   callbacks: {
     async session({ session, user }) {
       session.user = { ...session.user, id: user.id } as {
-        id: string;
-        name: string;
-        email: string;
-      };
+        id: string
+        name: string
+        email: string
+      }
 
-      return session;
+      return session
     },
 
     async signIn({ account }) {
-      if (account?.scope?.includes('https://www.googleapis.com/auth/userinfo.profile')) {
-        return '/home';
-      } else if(!account?.scope?.includes('https://www.googleapis.com/auth/userinfo.profile')) {
-        return '/signin';
+      if (
+        account?.scope?.includes(
+          'https://www.googleapis.com/auth/userinfo.profile',
+        )
+      ) {
+        return '/home'
+      } else if (
+        !account?.scope?.includes(
+          'https://www.googleapis.com/auth/userinfo.profile',
+        )
+      ) {
+        return '/signin'
       }
 
-      return true;
-    }
+      return true
+    },
   },
   secret: process.env.NEXT_AUTH_SECRET,
-};
+}
